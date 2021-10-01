@@ -38,14 +38,14 @@ if($New){
     Install-Module OSD -Force
     
     Write-Host "Setting up OSDCloud template..."
-    New-OSDCloud.template -winre -Verbose
+    New-OSDCloud.template -Verbose
 
 }
 if($Workspace){
     New-OSDCloud.workspace -WorkspacePath $Workspace
 }
 
-Edit-OSDCloud.winpe -CloudDriver'Dell','VMware','WiFi' 
+Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware','WiFi' 
 
 if($CustomURL){
     Edit-OSDCloud.winpe -WebPSScript $CustomURL 
