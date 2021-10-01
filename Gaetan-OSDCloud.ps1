@@ -12,12 +12,11 @@ Write-Host " "
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
 Write-Host "=============================================" -ForegroundColor Yellow
-Write-Host "1: Zero-Touch Win11      | English | Enterprise"-ForegroundColor Yellow
-Write-Host "2: Zero-Touch Win10 21H1 | English | Enterprise"-ForegroundColor Yellow
-Write-Host "3: Zero-Touch Win10 21H1 | French  | Enterprise"-ForegroundColor Yellow
-Write-Host "4: Zero-Touch Win10 20H2 | English | Enterprise" -ForegroundColor Yellow
-Write-Host "5: I'll select it myself"-ForegroundColor Yellow
-Write-Host "6: Exit`n"-ForegroundColor Yellow
+Write-Host "1: Zero-Touch Win10 21H1 | English | Enterprise"-ForegroundColor Yellow
+Write-Host "2: Zero-Touch Win10 21H1 | French  | Enterprise"-ForegroundColor Yellow
+Write-Host "3: Zero-Touch Win10 20H2 | English | Enterprise" -ForegroundColor Yellow
+Write-Host "4: Give me more choice ... "-ForegroundColor Yellow
+Write-Host "5: Exit`n"-ForegroundColor Yellow
 $input = Read-Host "Please make a selection"
 
 Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
@@ -28,11 +27,10 @@ Install-Module OSD -Force
 switch ($input)
 {
     '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
-    '2' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
-    '3' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
-    '4' { Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI } 
-    '5' { Start-OSDCloud	} 
-    '6' { Exit		}
+    '2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
+    '3' { Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI } 
+    '4' { Start-OSDCloud	} 
+    '5' { Exit		}
 }
 
 wpeutil reboot
