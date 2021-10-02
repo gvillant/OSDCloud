@@ -72,7 +72,7 @@ if($CustomGaetanURL){
 }
 
 if($Wallpaper){
-    Edit-OSDCloud.winpe Wallpaper $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
+    Edit-OSDCloud.winpe -Wallpaper $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
 }
 
 if($BuildISO){
