@@ -12,8 +12,8 @@ param (
     [switch]$New,
     [switch]$WifiSupport,
     [string]$Workspace,
-    [string]$CustomURL,
-    [switch]$CustomGaetanURL,
+    [string]$WebPSScript,
+    [switch]$WebPSScriptGaetan,
     [string]$Wallpaper,
     [switch]$BuildISO,
     [switch]$BuildUSB
@@ -52,28 +52,34 @@ if($Workspace){
     New-OSDCloud.workspace -WorkspacePath $Workspace
 }
 
+$Params = @{}
+
 if($WifiSupport){
     Write-Host "Injecting drivers with wifi support"
-    Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware','WiFi' 
+    $Params["CloudDriver"] = 'Dell','VMware','WiFi'
+
 } else {
     Write-Host "Injecting drivers without wifi support"
-    Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware'
+    $Params["CloudDriver"] = 'Dell','VMware'
 }
 
-
-Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware','WiFi' 
-
-if($CustomURL){
-    Edit-OSDCloud.winpe -WebPSScript $CustomURL 
+if($WebPSScript){
+    Write-Host "Will use custom WebPSScript: $WebPSScript"
+    $Params["WebPSScript"] = $WebPSScript 
 }
 
-if($CustomGaetanURL){
-    Edit-OSDCloud.winpe -WebPSScript "https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1" 
+if($WebPSScriptGaetan){
+    $CustomGaetanURL = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1"
+    Write-Host "Will use custom WebPSScript: $CustomGaetanURL"
+    $Params["WebPSScript"] = $CustomGaetanURL
 }
 
 if($Wallpaper){
-    Edit-OSDCloud.winpe Wallpaper $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
+    Write-Host "Injecting Wallpaper $Wallpaper"
+    $Params["Wallpaper"] = $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
 }
+
+Edit-OSDCloud.winpe @Params
 
 if($BuildISO){
     New-OSDCloud.iso
