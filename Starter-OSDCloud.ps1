@@ -10,9 +10,11 @@
 param (
     [switch]$ADK,
     [switch]$New,
+    [switch]$WifiSupport,
     [string]$Workspace,
     [string]$CustomURL,
     [switch]$CustomGaetanURL,
+    [string]$Wallpaper,
     [switch]$BuildISO,
     [switch]$BuildUSB
 )
@@ -37,13 +39,27 @@ if($New){
     Write-Host "Installing OSDCloud Powershell Module"
     Install-Module OSD -Force
     
-    Write-Host "Setting up OSDCloud template..."
-    New-OSDCloud.template -Verbose
+    if($WifiSupport){
+        Write-Host "Setting up OSDCloud template with wifi support (WinRE)..."
+        New-OSDCloud.template -winre -Verbose
+    } else {
+        Write-Host "Setting up OSDCloud template without wifi support (WinPE)..."
+        New-OSDCloud.template -Verbose
+    }
 
 }
 if($Workspace){
     New-OSDCloud.workspace -WorkspacePath $Workspace
 }
+
+if($WifiSupport){
+    Write-Host "Injecting drivers with wifi support"
+    Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware','WiFi' 
+} else {
+    Write-Host "Injecting drivers without wifi support"
+    Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware'
+}
+
 
 Edit-OSDCloud.winpe -CloudDriver 'Dell','VMware','WiFi' 
 
@@ -53,6 +69,10 @@ if($CustomURL){
 
 if($CustomGaetanURL){
     Edit-OSDCloud.winpe -WebPSScript "https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1" 
+}
+
+if($Wallpaper){
+    Edit-OSDCloud.winpe Wallpaper $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
 }
 
 if($BuildISO){
