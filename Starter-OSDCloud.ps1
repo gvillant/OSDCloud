@@ -75,12 +75,8 @@ if($WebPSScriptGaetan){
 }
 
 if($Wallpaper){
-<<<<<<< HEAD
     Write-Host "Injecting Wallpaper $Wallpaper"
     $Params["Wallpaper"] = $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
-=======
-    Edit-OSDCloud.winpe -Wallpaper $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
->>>>>>> c8254ba345225c5ce376e1423554b2f5e82d7ac0
 }
 
 Edit-OSDCloud.winpe @Params
