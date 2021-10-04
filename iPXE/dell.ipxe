@@ -1,0 +1,11 @@
+#!ipxe
+
+set boot-url http://osd.gaetanvillant.com:8888
+
+kernel ${boot-url}/wimboot quiet
+
+initrd ${boot-url}/Boot/BCD         BCD
+initrd ${boot-url}/Boot/boot.sdi    BOOT.SDI
+initrd ${boot-url}/sources/boot.wim BOOT.WIM
+
+boot
