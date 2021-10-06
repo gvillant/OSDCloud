@@ -1,5 +1,7 @@
 #!ipxe
 
+prompt --key 0x02 --timeout 3000 Press Ctrl-B for the iPXE command line... && shell ||
+
 set boot-url http://osd.gaetanvillant.com:8888
 
 kernel ${boot-url}/wimboot quiet
