@@ -25,7 +25,7 @@ Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
 Import-Module OSD -Force
 Install-Module OSD -Force
 
-#Fix MSCatog error
+#Fix MSCatalog error
 function Invoke-ParseDate {
     param (
         [String] $DateString
