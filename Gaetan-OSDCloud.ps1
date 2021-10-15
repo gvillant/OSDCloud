@@ -25,6 +25,16 @@ Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
 Import-Module OSD -Force
 Install-Module OSD -Force
 
+#Fix MSCatog error
+function Invoke-ParseDate {
+    param (
+        [String] $DateString
+    )
+
+    $Array = $DateString.Split("/")
+    Get-Date -Year $Array[2] -Month $Array[0] -Day $Array[1]
+}
+
 switch ($input)
 {
     '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
