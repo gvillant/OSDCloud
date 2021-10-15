@@ -1,4 +1,4 @@
-Write-Host  -ForegroundColor Yellow "Starting Gaëtan @ Dell Custom OSDCloud ..."
+Write-Host  -ForegroundColor Yellow "Starting Gaëtan @ Dell Custom v2 OSDCloud ..."
 cls
 Write-Host "================ Main Menu ==================" -ForegroundColor Yellow
 Write-Host " "
