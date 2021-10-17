@@ -22,8 +22,8 @@ $input = Read-Host "Please make a selection"
 
 Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
 
-Import-Module OSD -Force
 Install-Module OSD -Force
+Import-Module OSD -Force
 
 #Fix MSCatalog error
 function Invoke-ParseDate {
