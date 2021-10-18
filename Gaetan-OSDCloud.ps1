@@ -22,8 +22,18 @@ $input = Read-Host "Please make a selection"
 
 Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
 
-Install-Module OSD -Force
-Import-Module OSD -Force
+#Install-Module OSD -Force
+#Import-Module OSD -Force
+
+#Fix MSCatalog error (missing function)
+function Invoke-ParseDate {
+    param (
+        [String] $DateString
+    )
+
+    $Array = $DateString.Split("/")
+    Get-Date -Year $Array[2] -Month $Array[0] -Day $Array[1]
+}
 
 switch ($input)
 {
