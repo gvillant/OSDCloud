@@ -26,6 +26,7 @@ Install-Module OSD -Force
 Import-Module OSD -Force
 
 #Fix MSCatalog error
+<#
 function Invoke-ParseDate {
     param (
         [String] $DateString
@@ -34,6 +35,7 @@ function Invoke-ParseDate {
     $Array = $DateString.Split("/")
     Get-Date -Year $Array[2] -Month $Array[0] -Day $Array[1]
 }
+#>
 
 switch ($input)
 {
