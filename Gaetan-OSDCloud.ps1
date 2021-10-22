@@ -12,16 +12,14 @@ Write-Host " "
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
 Write-Host "=============================================" -ForegroundColor Yellow
-Write-Host "1: Zero-Touch Win10 21H1 | English | Enterprise"-ForegroundColor Yellow
-Write-Host "2: Zero-Touch Win10 21H1 | French  | Enterprise"-ForegroundColor Yellow
-Write-Host "3: Zero-Touch Win10 20H2 | English | Enterprise" -ForegroundColor Yellow
-Write-Host "4: Give me more choice ... "-ForegroundColor Yellow
-Write-Host "5: Start-OSDCloudGUI "-ForegroundColor Yellow
-Write-Host "6: Start-OSDCloudWIM (DELL Generic WIMs)"-ForegroundColor Yellow
+Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)"-ForegroundColor Yellow
+Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)"-ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "4: Start the legacy OSDCloud CLI (Start-OSDCloud)"-ForegroundColor Yellow
+Write-Host "5: Start the graphical OSDCloud (Start-OSDCloudGUI)"-ForegroundColor Yellow
+Write-Host "6: Win10 Custom WIMs (Azure storage file share)"-ForegroundColor Yellow
 Write-Host "7: Exit`n"-ForegroundColor Yellow
 $input = Read-Host "Please make a selection"
-
-#Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
 
 switch ($input)
 {
