@@ -19,6 +19,9 @@ Write-Host "4: Start the legacy OSDCloud CLI (Start-OSDCloud)"-ForegroundColor Y
 Write-Host "5: Start the graphical OSDCloud (Start-OSDCloudGUI)"-ForegroundColor Yellow
 Write-Host "6: Win10 Custom WIMs (Azure storage file share)"-ForegroundColor Yellow
 Write-Host "7: Exit`n"-ForegroundColor Yellow
+
+Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Cyan
+
 $input = Read-Host "Please make a selection"
 
 switch ($input)
@@ -35,7 +38,7 @@ switch ($input)
         # Mount the drive
         Write-Host  -ForegroundColor Yellow "Mount drive O:"
         New-PSDrive -Name O -PSProvider FileSystem -Root "\\osdcloud.file.core.windows.net\osdcloud-fs"
-        Start-OSDCloud -FindImageFile -ImageIndex 1 
+        Start-OSDCloud -FindImageFile -ZTI
         } 
     '7' { Exit }
 }
