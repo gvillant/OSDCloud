@@ -34,7 +34,7 @@ switch ($input)
     '2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '3' { Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI } 
     '4' { Start-OSDCloud } 
-    '5' { Start-OSDCloud -FindImageFile } 
+    '5' { Start-OSDCloud -FindImageFile -ImageIndex 0 } 
     '6' { Start-OSDCloud  } 
     '7' { Exit }
 }
