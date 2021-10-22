@@ -21,12 +21,7 @@ Write-Host "6: Start-OSDCloudWIM (DELL Generic WIMs)"-ForegroundColor Yellow
 Write-Host "7: Exit`n"-ForegroundColor Yellow
 $input = Read-Host "Please make a selection"
 
-Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
-
-#Connect Azure Storage file share for custom DELL WIM access
-cmd.exe /C "c:\windows\system32\cmdkey.exe /add:`"osdcloud.file.core.windows.net`" /user:`"localhost\osdcloud`" /pass:`"BckU9jeGTOtkSjQ56byVkbFYYTFkvtqte2NPPpjt5bsuK930Licjim7R39/FGzs3GxTmot3r7wLT2g62+pRlLg==`""
-# Mount the drive
-New-PSDrive -Name O -PSProvider FileSystem -Root "\\osdcloud.file.core.windows.net\osdcloud-fs"
+#Write-Host  -ForegroundColor Yellow "Loading OSDCloud..."
 
 switch ($input)
 {
@@ -34,8 +29,14 @@ switch ($input)
     '2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '3' { Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI } 
     '4' { Start-OSDCloud } 
-    '5' { Start-OSDCloud -FindImageFile -ImageIndex 0 } 
-    '6' { Start-OSDCloud  } 
+    '5' { Start-OSDCloudGUI } 
+    '6' { 
+        #Connect Azure Storage file share for custom DELL WIM access
+        cmd.exe /C "c:\windows\system32\cmdkey.exe /add:`"osdcloud.file.core.windows.net`" /user:`"localhost\osdcloud`" /pass:`"BckU9jeGTOtkSjQ56byVkbFYYTFkvtqte2NPPpjt5bsuK930Licjim7R39/FGzs3GxTmot3r7wLT2g62+pRlLg==`""
+        # Mount the drive
+        New-PSDrive -Name O -PSProvider FileSystem -Root "\\osdcloud.file.core.windows.net\osdcloud-fs"
+        Start-OSDCloud -FindImageFile -ImageIndex 0 
+        } 
     '7' { Exit }
 }
 
