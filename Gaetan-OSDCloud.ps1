@@ -32,10 +32,12 @@ switch ($input)
     '5' { Start-OSDCloudGUI } 
     '6' { 
         #Connect Azure Storage file share for custom DELL WIM access
+        Write-Host  -ForegroundColor Yellow "Connect to Azure File Share ..."
         cmd.exe /C "c:\windows\system32\cmdkey.exe /add:`"osdcloud.file.core.windows.net`" /user:`"localhost\osdcloud`" /pass:`"BckU9jeGTOtkSjQ56byVkbFYYTFkvtqte2NPPpjt5bsuK930Licjim7R39/FGzs3GxTmot3r7wLT2g62+pRlLg==`""
         # Mount the drive
+        Write-Host  -ForegroundColor Yellow "Mount drive O:"
         New-PSDrive -Name O -PSProvider FileSystem -Root "\\osdcloud.file.core.windows.net\osdcloud-fs"
-        Start-OSDCloud -FindImageFile -ImageIndex 0 
+        Start-OSDCloud -FindImageFile -ImageIndex 1 
         } 
     '7' { Exit }
 }
