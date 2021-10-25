@@ -1,4 +1,7 @@
-Write-Host  -ForegroundColor Yellow "Starting Gaëtan @ Dell Custom v2 OSDCloud ..."
+#Temporary Custom script
+Invoke-WebPSScript -Url https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud-ImageFileUrl.ps1
+wpeutil reboot
+
 cls
 Write-Host "================ Main Menu ==================" -ForegroundColor Yellow
 Write-Host " "
@@ -11,6 +14,7 @@ Write-Host "      |_____/  |______| |______| |______|" -ForegroundColor Cyan
 Write-Host " "
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
+Write-Host "========== gaetan_villant@dell.com ==========`n" -ForegroundColor Yellow
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
