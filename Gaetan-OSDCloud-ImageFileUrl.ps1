@@ -27,7 +27,7 @@ if ($decision -eq 0) {
     exit
 }
 
-Start-OSDCloud -ImageFileUrl http://osd.gaetanvillant.com:8888/20h2.wim -ImageIndex 1 -Zti
+Start-OSDCloud -ImageFileUrl http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim -ImageIndex 1 -Zti
 
 #reboot to OS
 wpeutil reboot
