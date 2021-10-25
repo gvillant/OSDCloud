@@ -14,8 +14,8 @@ Write-Host "      |_____/  |______| |______| |______|" -ForegroundColor Cyan
 Write-Host " "
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
-Write-Host "========== gaetan_villant@dell.com ==========`n" -ForegroundColor Yellow
-Write-Host "=============================================" -ForegroundColor Yellow
+Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
+Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
