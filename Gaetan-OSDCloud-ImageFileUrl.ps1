@@ -11,6 +11,7 @@ Write-Host " "
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
 Write-Host "========== gaetan_villant@dell.com ==========`n" -ForegroundColor Yellow
+Write-Host "=============================================" -ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
@@ -21,9 +22,9 @@ $choices  = '&Yes', '&No'
 
 $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
 if ($decision -eq 0) {
-    Write-Host 'confirmed'
+    Write-Host 'Operation confirmed by user: OSD Cloud is starting' -ForegroundColor Yellow
 } else {
-    Write-Host 'cancelled'
+    Write-Host 'Operation cancelled by user'
     exit
 }
 
