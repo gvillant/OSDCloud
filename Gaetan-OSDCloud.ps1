@@ -1,6 +1,6 @@
 #Temporary Custom script
-Invoke-WebPSScript -WebPSScript https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud-ImageFileUrl.ps1
-wpeutil reboot
+#Invoke-WebPSScript -WebPSScript https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud-ImageFileUrl.ps1
+#wpeutil reboot
 
 cls
 Write-Host "================ Main Menu ==================" -ForegroundColor Yellow
