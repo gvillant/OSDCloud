@@ -14,6 +14,7 @@ Write-Host "=============================================" -ForegroundColor Yell
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
 Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
 Write-Host "=============================================`n" -ForegroundColor Yellow
+Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
