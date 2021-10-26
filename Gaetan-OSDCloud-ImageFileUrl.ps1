@@ -1,3 +1,5 @@
+$ImageFileUrl = "http://osd.gaetanvillant.com:8888/2004_en_us_388.wim" #"http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim"
+
 cls
 Write-Host "================ Main Menu ==================" -ForegroundColor Yellow
 Write-Host " "
@@ -28,7 +30,7 @@ if ($decision -eq 0) {
     exit
 }
 
-Start-OSDCloud -ImageFileUrl http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim -ImageIndex 1 -Zti
+Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 1 -Zti
 
 #reboot to OS
 wpeutil reboot
