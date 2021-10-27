@@ -1,11 +1,45 @@
-# OSDCloud starter kit 
-# OSDCloud module created by David Segura
-# https://osdcloud.osdeploy.com/get-started
-# initially developped by Brooks Peppin
-# improved by Gaëtan Villant
-#--------------------------------------------
-#----------------Pre-Reqs--------------------
-#--------------------------------------------
+<#
+.SYNOPSIS
+Install OSDCloud prerequisites, create the OSDCloud workspace and build the ISO 
+OSDCloud module created by David Segura - https://osdcloud.osdeploy.com/
+This script is an improvment of Brooks Peppin initial script.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+.DESCRIPTION
+Install OSDCloud prerequisites (ADK, WinPE Addon), installs the OSDCloud module, create the OSDCloud workspace and build the ISO and USB
+.PARAMETER ADK
+Download and install ADK and WinPE Addon
+.PARAMETER New
+Install latest OSDCloud module version and create a template  
+.PARAMETER WifiSupport
+Enable Wifi support (require Winre)
+.PARAMETER Workspace
+Specify the workspace location 
+.PARAMETER WebPSScript
+Specify the WebPSScript URL
+.PARAMETER WebPSScriptGaetan
+Use the Gaëtan Demo WebPSScript 
+.PARAMETER Wallpaper
+Specify the wallpaper to inject in the Boot image C:\OSDCloud\Wallpaper.jpg 
+.PARAMETER BuildISO
+Build ISOs
+.PARAMETER BuildUSB
+Build USB dongle
+.EXAMPLE
+.\Starter-OSDCloud.ps1 -ADK -New -Workspace C:\OSDCloud -WebPSScriptGaetan -Wallpaper C:\Tmp\DellServices2021_HQ.jpg -BuildISO
+- Download and install ADK and WinPe Addon (version 10.1.22000.1)
+- Install module OSD (-new = force module installation)
+- Create a new OSDCloud Workspace to C:\OSDCloud
+- Inject my custom WebPSScript (https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1)
+- Set the Dell Services Wallpaper
+- Build ISOs (one with prompt, one without prompt)
+.EXAMPLE
+.\Starter-OSDCloud.ps1 -ADK -New -Workspace C:\OSDCloud -BuildUSB
+#>
+
 [CmdletBinding()]
 param (
     [switch]$ADK,
@@ -19,19 +53,24 @@ param (
     [switch]$BuildUSB
 )
 
-
-#Install Win10 ADK and WinPE ADK
+#Install ADK and WinPE ADK
 If($ADK){
-    Write-Host "Downloading ADKsetup.exe (10.1.22000.1)..."
+    # URLs for ADK Windows 11 - 10.1.22000.1
+    $ADKVersion = "10.1.22000.1 - Windows 11"
+    $ADKSetupURL = "https://go.microsoft.com/fwlink/?linkid=2165884" 
+    $ADKWinPESetupURL = "https://go.microsoft.com/fwlink/?linkid=2166133"
     $downloads = "$env:USERPROFILE\downloads"
-    Invoke-WebRequest "https://go.microsoft.com/fwlink/?linkid=2165884" -OutFile $downloads\adksetup.exe
-    
-    Write-Host "Installing ADK for Windows 10"
+
+    # ADK
+    Write-Host "Downloading ADKsetup.exe $ADKVersion ..."
+    Invoke-WebRequest $ADKSetupURL -OutFile $downloads\adksetup.exe
+    Write-Host "Installing ADK ..."
     start-process -FilePath "$downloads\adksetup.exe" -ArgumentList "/quiet /features OptionId.DeploymentTools" -Wait
     
-    Write-Host "Downloading ADKWinpesetup.exe (10.1.22000.1)..."
-    Invoke-WebRequest "https://go.microsoft.com/fwlink/?linkid=2166133" -OutFile $downloads\adkwinpesetup.exe
-    Write-Host "Installing ADK WinPE for Windows 10"
+    # ADK WinPE Addon
+    Write-Host "Downloading ADKWinpesetup.exe $ADKVersion ..."
+    Invoke-WebRequest $ADKWinPESetupURL -OutFile $downloads\adkwinpesetup.exe
+    Write-Host "Installing ADK WinPE add-on"
     start-process -FilePath "$downloads\adkwinpesetup.exe" -ArgumentList "/quiet /features OptionId.WindowsPreinstallationEnvironment" -Wait
 }
 
@@ -76,7 +115,7 @@ if($WebPSScriptGaetan){
 
 if($Wallpaper){
     Write-Host "Injecting Wallpaper $Wallpaper"
-    $Params["Wallpaper"] = $Wallpaper # C:\OSDCloud\Wallpaper.jpg ? 
+    $Params["Wallpaper"] = $Wallpaper 
 }
 
 Edit-OSDCloud.winpe @Params
