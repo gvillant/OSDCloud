@@ -22,7 +22,8 @@ Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file)" -For
 Write-Host "4: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "5: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
 Write-Host "6: Win10 Custom WIMs (Azure storage file share)" -ForegroundColor Yellow
-Write-Host "7: Exit`n"-ForegroundColor Yellow
+Write-Host "7: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "8: Exit`n"-ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
@@ -44,7 +45,25 @@ switch ($input)
         New-PSDrive -Name O -PSProvider FileSystem -Root "\\osdcloud.file.core.windows.net\osdcloud-fs"
         Start-OSDCloud -FindImageFile -ZTI
         } 
-    '7' { Exit }
+    '7' { 
+        $Global:StartOSDCloudGUI = $null
+        $Global:StartOSDCloudGUI = [ordered]@{
+            ApplyManufacturerDrivers    = $true
+            ApplyCatalogDrivers         = $false
+            ApplyCatalogFirmware        = $false
+            #OSBuild                     = $OSBuild
+            OSEdition                   = 'Enterprise'
+            #OSImageIndex                = $OSImageIndex
+            OSLanguage                  = 'en-US'
+            OSLicense                   = 'Volume'
+            OSVersion                   = 'Windows 11'
+            SkipODT                     = $true
+            ZTI                         = $true
+            }
+        $Global:StartOSDCloudGUI | Out-Host
+        Start-OSDCloud
+        }
+    '8' { Exit }
 }
 
 wpeutil reboot
