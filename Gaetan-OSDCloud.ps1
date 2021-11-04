@@ -66,4 +66,4 @@ switch ($input)
     '8' { Exit }
 }
 
-wpeutil reboot
+#wpeutil reboot
