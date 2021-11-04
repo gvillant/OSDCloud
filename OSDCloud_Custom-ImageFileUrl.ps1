@@ -1,4 +1,4 @@
-$ImageFileUrl = "http://osd.gaetanvillant.com:8888/2004_en_us_388.wim" #"http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim"
+$ImageFileUrl = "http://osd.gaetanvillant.com:8888/_Wim/2004_en_us_388.wim" #"http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim"
 
 cls
 Write-Host "================ Main Menu ==================" -ForegroundColor Yellow
