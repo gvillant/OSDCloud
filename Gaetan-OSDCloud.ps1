@@ -22,7 +22,7 @@ Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file)" -For
 Write-Host "4: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "5: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
 Write-Host "6: Win10 Custom WIMs (Azure storage file share)" -ForegroundColor Yellow
-Write-Host "7: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "7: Win11 | en-us | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "8: Exit`n"-ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
@@ -46,22 +46,44 @@ switch ($input)
         Start-OSDCloud -FindImageFile -ZTI
         } 
     '7' { 
-        $Global:StartOSDCloud = $null
-        $Global:StartOSDCloud = [ordered]@{
-            ApplyManufacturerDrivers    = $true
+        $Global:StartOSDCloudGUI = $null
+        $Global:StartOSDCloudGUI = [ordered]@{
+            ApplyManufacturerDrivers    = $false
             ApplyCatalogDrivers         = $false
             ApplyCatalogFirmware        = $false
-            #OSBuild                     = $OSBuild
+            AutopilotJsonChildItem      = $false
+            AutopilotJsonItem           = $false
+            AutopilotJsonName           = $false
+            AutopilotJsonObject         = $false
+            AutopilotOOBEJsonChildItem  = $false
+            AutopilotOOBEJsonItem       = $false
+            AutopilotOOBEJsonName       = $false
+            AutopilotOOBEJsonObject     = $false
+            ImageFileFullName           = $false
+            ImageFileItem               = $false
+            ImageFileName               = $false
+            #Manufacturer                = $formMainWindowControlCSManufacturerTextbox.Text
+            OOBEDeployJsonChildItem     = $false
+            OOBEDeployJsonItem          = $false
+            OOBEDeployJsonName          = $false
+            OOBEDeployJsonObject        = $false
+            OSBuild                     = '21H2'
             OSEdition                   = 'Enterprise'
-            #OSImageIndex                = $OSImageIndex
-            OSLanguage                  = 'en-US'
+            OSImageIndex                = 1
+            OSLanguage                  = 'en-us'
             OSLicense                   = 'Volume'
             OSVersion                   = 'Windows 11'
+            #Product                     = $formMainWindowControlCSProductTextbox.Text
+            Restart                     = $false
+            SkipAutopilot               = $false
+            SkipAutopilotOOBE           = $false
             SkipODT                     = $true
-            ZTI                         = $true
+            SkipOOBEDeploy              = $false
+            ZTI                         = $false
             }
-        $Global:StartOSDCloud | Out-Host
+        $Global:StartOSDCloudGUI | Out-Host
         Start-OSDCloud
+        
         }
     '8' { Exit }
 }
