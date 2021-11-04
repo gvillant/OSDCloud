@@ -81,9 +81,8 @@ switch ($input)
             SkipOOBEDeploy              = $false
             ZTI                         = $true
             }
-        $Global:StartOSDCloudGUI | Out-Host
+        #$Global:StartOSDCloudGUI | Out-Host
         Start-OSDCloud
-        
         }
     '8' { Exit }
 }
