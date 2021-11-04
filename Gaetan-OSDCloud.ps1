@@ -46,8 +46,8 @@ switch ($input)
         Start-OSDCloud -FindImageFile -ZTI
         } 
     '7' { 
-        $Global:StartOSDCloudGUI = $null
-        $Global:StartOSDCloudGUI = [ordered]@{
+        $Global:StartOSDCloud = $null
+        $Global:StartOSDCloud = [ordered]@{
             ApplyManufacturerDrivers    = $true
             ApplyCatalogDrivers         = $false
             ApplyCatalogFirmware        = $false
@@ -60,7 +60,7 @@ switch ($input)
             SkipODT                     = $true
             ZTI                         = $true
             }
-        $Global:StartOSDCloudGUI | Out-Host
+        $Global:StartOSDCloud | Out-Host
         Start-OSDCloud
         }
     '8' { Exit }
