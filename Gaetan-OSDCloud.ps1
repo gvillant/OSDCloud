@@ -48,7 +48,7 @@ switch ($input)
     '7' { 
         $Global:StartOSDCloudGUI = $null
         $Global:StartOSDCloudGUI = [ordered]@{
-            ApplyManufacturerDrivers    = $false
+            ApplyManufacturerDrivers    = $true
             ApplyCatalogDrivers         = $false
             ApplyCatalogFirmware        = $false
             AutopilotJsonChildItem      = $false
@@ -74,12 +74,12 @@ switch ($input)
             OSLicense                   = 'Volume'
             OSVersion                   = 'Windows 11'
             #Product                     = $formMainWindowControlCSProductTextbox.Text
-            Restart                     = $false
+            Restart                     = $true
             SkipAutopilot               = $false
             SkipAutopilotOOBE           = $false
             SkipODT                     = $true
             SkipOOBEDeploy              = $false
-            ZTI                         = $false
+            ZTI                         = $true
             }
         $Global:StartOSDCloudGUI | Out-Host
         Start-OSDCloud
