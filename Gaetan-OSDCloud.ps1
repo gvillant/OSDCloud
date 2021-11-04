@@ -1,5 +1,5 @@
 #Temporary Custom script
-#Invoke-WebPSScript -WebPSScript https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud-ImageFileUrl.ps1
+#Invoke-WebPSScript -WebPSScript https://raw.githubusercontent.com/gvillant/OSDCloud/main/OSDCloud_Custom-ImageFileUrl.ps1
 #wpeutil reboot
 
 cls
