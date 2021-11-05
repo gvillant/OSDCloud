@@ -2,14 +2,6 @@ $ImageFileUrl = "http://osd.gaetanvillant.com:8888/_Wim/2004_en_us_388.wim" #"ht
 
 cls
 Write-Host "================ Main Menu ==================" -ForegroundColor Yellow
-Write-Host " "
-Write-Host "       _____    ______   _        _      " -ForegroundColor Cyan
-Write-Host "      |  __ \  |  ____| | |      | |     " -ForegroundColor Cyan
-Write-Host "      | |  | | | |__    | |      | |     " -ForegroundColor Cyan
-Write-Host "      | |  | | |  __|   | |      | |     " -ForegroundColor Cyan
-Write-Host "      | |__| | | |____  | |____  | |____ " -ForegroundColor Cyan
-Write-Host "      |_____/  |______| |______| |______|" -ForegroundColor Cyan
-Write-Host " "
 Write-Host "=============================================" -ForegroundColor Yellow
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
 Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
