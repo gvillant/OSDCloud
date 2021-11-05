@@ -23,7 +23,8 @@ switch ($input)
     '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '3' { Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI } 
-    '4' { #Win11
+    '4' { 
+        #Win11
         $Global:StartOSDCloudGUI = $null
         $Global:StartOSDCloudGUI = [ordered]@{
             ApplyManufacturerDrivers    = $true
@@ -82,4 +83,5 @@ switch ($input)
     '9' { Exit }
 }
 
-#wpeutil reboot
+#Reboot to OS
+wpeutil reboot
