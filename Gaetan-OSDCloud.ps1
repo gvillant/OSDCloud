@@ -94,4 +94,4 @@ switch ($input)
     '9' { Exit }
 }
 
-#wpeutil reboot
+wpeutil reboot
