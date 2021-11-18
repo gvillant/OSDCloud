@@ -1,0 +1,13 @@
+#!ipxe
+
+# Comment the following line if you want to remove iPXE cmdline access.
+prompt --key 0x02 --timeout 2000 Press Ctrl-B for the iPXE command line... && shell ||
+
+
+kernel wimboot quiet
+
+initrd Boot/BCD         BCD
+initrd Boot/boot.sdi    BOOT.SDI
+initrd sources/boot.wim BOOT.WIM
+
+boot
