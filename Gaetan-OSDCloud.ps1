@@ -24,7 +24,8 @@ Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor 
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
 Write-Host "7: Windows Custom WIMs (Azure storage file share)" -ForegroundColor Yellow
 Write-Host "8: Win10 Custom WIMs (HTTP Server Wim File - ImageFileUrl)" -ForegroundColor Yellow
-Write-Host "9: Exit`n"-ForegroundColor Yellow
+Write-Host "9: Server 2022 (HTTP Server ISO File - ImageFileUrl)" -ForegroundColor Yellow
+Write-Host "10: Exit`n"-ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
@@ -91,7 +92,14 @@ switch ($input)
         Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
         Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 1 -Zti
      } 
-    '9' { Exit }
+     
+    '9' { 
+        # Server 2022  ISO (HTTP Server ISO File)
+        $ImageFileUrl = "http://osd.gaetanvillant.com:8888/_Wim/en-us_windows_server_version_2022_updated_october_2021_x64.iso"
+        Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
+        Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 1 -Zti
+     } 
+    '10' { Exit }
 }
 
 wpeutil reboot
