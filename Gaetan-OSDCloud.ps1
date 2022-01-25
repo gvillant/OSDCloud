@@ -18,7 +18,7 @@ Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yell
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
@@ -35,7 +35,18 @@ switch ($input)
 {
     '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
-    '3' { Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI } 
+    '3' { 
+        Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
+        $AuditUnattendXML = "http://osd.gaetanvillant.com:8888/_WS1/Audit_unattend.xml"
+        $GenericPPKGDestPath = "C:\Temp"
+        #Get Dropship Generic PPKG
+        Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
+        Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
+        #Stage Audit_unattend file 
+        Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "unattend.xml" -DestinationDirectory "C:\Windows\panther"
+        read-host "Press ENTER to continue..."        
+        } 
     '4' { #Win11
         $Global:StartOSDCloudGUI = $null
         $Global:StartOSDCloudGUI = [ordered]@{
