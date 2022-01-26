@@ -45,7 +45,7 @@ switch ($input)
         Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
         #Stage Audit_unattend file 
         Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
-        read-host "Press ENTER to continue..."        
+        #read-host "Press ENTER to continue..."        
         } 
     '4' { #Win11
         $Global:StartOSDCloudGUI = $null
