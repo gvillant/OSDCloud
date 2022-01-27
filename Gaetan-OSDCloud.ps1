@@ -38,7 +38,7 @@ switch ($input)
     '3' { 
         Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
         $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
-        $AuditUnattendXML = "http://osd.gaetanvillant.com:8888/_WS1/Audit_unattend.xml"
+        $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
         $GenericPPKGDestPath = "C:\Temp"
         #Get Dropship Generic PPKG
         Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
