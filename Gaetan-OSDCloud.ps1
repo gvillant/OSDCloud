@@ -32,43 +32,37 @@ Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all d
 $input = Read-Host "Please make a selection"
 
 function Create-WinREPartition {
-$DiskpartFilePath = "C:\OSDCloud"
-$DiskpartFile = "recovery.txt"
-$FileExist = Test-Path -Path $DiskpartFilePath\$DiskpartFile -PathType Leaf
-if ($FileExist -eq $False) {
-   New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+	$DiskpartFilePath = "C:\OSDCloud"
+	$DiskpartFile = "recovery.txt"
+	$FileExist = Test-Path -Path $DiskpartFilePath\$DiskpartFile -PathType Leaf
+	if ($FileExist -eq $False) {
+	   New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+	}
+	Else {
+		Remove-Item -Path $DiskpartFilePath\$DiskpartFile
+		New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+	}
+	#Build recovery.txt file
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select disk 0"
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select partition 3"
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Shrink minimum=2048'
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'create partition primary'
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'format quick fs=ntfs label=WinRE'
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"'
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'gpt attributes=0x8000000000000001' 
+	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'exit diskpart'
+	# Execute diskpart file recovery.txt
+	Write-host "- Executing diskpart file recovery.txt ..."
+	$CMD2Run="C:\Windows\System32\Diskpart.exe"
+	$CMDArgs = "/s $($DiskpartFilePath)\$($DiskpartFile)"
+	Write-host  " Execute Command: [$CMD2Run $CMDArgs]"
+	$Command = Start-Process -WindowStyle Hidden -FilePath $CMD2Run -ArgumentList $CMDArgs -RedirectStandardOutput $DiskpartLog -Wait -PassThru; $Command.ExitCode
+	$ReturnCode = $Command.ExitCode
+	Write-host  " Return Code: $ReturnCode"
+	if (!($ReturnCode -eq 0)) {
+		Write-host  " Failed to run Command: [$CMD2Run $CMDArgs]. Return Code=$ReturnCode. Exit process"	
+		Exit $ReturnCode
 }
-Else {
-	Remove-Item -Path $DiskpartFilePath\$DiskpartFile
-	New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
-}
-
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select disk 0"
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select partition 3"
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Shrink minimum=2048'
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'create partition primary'
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'format quick fs=ntfs label=WinRE'
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"'
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'gpt attributes=0x8000000000000001' 
-Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'exit diskpart'
-
-# Execute diskpart file recovery.txt
-Write-host "- Executing diskpart file recovery.txt ..."
-
-$CMD2Run="C:\Windows\System32\Diskpart.exe"
-$CMDArgs = "/s $($DiskpartFilePath)\$($DiskpartFile)"
-	
-Write-host  " Execute Command: [$CMD2Run $CMDArgs]"
-
-$Command = Start-Process -WindowStyle Hidden -FilePath $CMD2Run -ArgumentList $CMDArgs -RedirectStandardOutput $DiskpartLog -Wait -PassThru; $Command.ExitCode
-$ReturnCode = $Command.ExitCode
-Write-host  " Return Code: $ReturnCode"
-
-if (!($ReturnCode -eq 0)) {
-	Write-host  " Failed to run Command: [$CMD2Run $CMDArgs]. Return Code=$ReturnCode. Exit process"	
-	Exit $ReturnCode
-}
-
 Write-host " Pausing for 5 seconds before next action. Please wait..."
 sleep -seconds 5
 }
