@@ -18,7 +18,7 @@ Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yell
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + WinRE + pause" -ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + WinRE + pause v2" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
@@ -36,21 +36,21 @@ function Create-WinREPartition {
 	$DiskpartFile = "recovery.txt"
 	$FileExist = Test-Path -Path $DiskpartFilePath\$DiskpartFile -PathType Leaf
 	if ($FileExist -eq $False) {
-	   New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+	   New-Item -Path $DiskpartFilePath -Name $DiskpartFile -ItemType file -force | Out-Null
 	}
 	Else {
 		Remove-Item -Path $DiskpartFilePath\$DiskpartFile
-		New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+		New-Item -Path $DiskpartFilePath -Name $DiskpartFile -ItemType file -force | Out-Null
 	}
 	#Build recovery.txt file
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select disk 0"
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select partition 3"
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Shrink minimum=2048'
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'create partition primary'
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'format quick fs=ntfs label=WinRE'
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"'
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'gpt attributes=0x8000000000000001' 
-	Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'exit diskpart'
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value "select disk 0"
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value "select partition 3"
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value 'Shrink minimum=2048'
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value 'create partition primary'
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value 'format quick fs=ntfs label=WinRE'
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value 'Set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"'
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value 'gpt attributes=0x8000000000000001' 
+	Add-Content -path $DiskpartFilePath\$DiskpartFile -Value 'exit diskpart'
 	# Execute diskpart file recovery.txt
 	Write-host "- Executing diskpart file recovery.txt ..."
 	$CMD2Run="C:\Windows\System32\Diskpart.exe"
@@ -62,9 +62,9 @@ function Create-WinREPartition {
 	if (!($ReturnCode -eq 0)) {
 		Write-host  " Failed to run Command: [$CMD2Run $CMDArgs]. Return Code=$ReturnCode. Exit process"	
 		Exit $ReturnCode
-}
-Write-host " Pausing for 5 seconds before next action. Please wait..."
-sleep -seconds 5
+	}
+	Write-host " Pausing for 5 seconds before next action. Please wait..."
+	sleep -seconds 5
 }
 
 switch ($input)
