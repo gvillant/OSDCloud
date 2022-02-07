@@ -18,7 +18,7 @@ Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yell
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + pause" -ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + WinRE + pause" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
@@ -30,6 +30,48 @@ Write-Host "10: Exit`n"-ForegroundColor Yellow
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
 $input = Read-Host "Please make a selection"
+
+function Create-WinREPartition {
+$DiskpartFilePath = "C:\OSDCloud"
+$DiskpartFile = "recovery.txt"
+$FileExist = Test-Path -Path $DiskpartFilePath\$DiskpartFile -PathType Leaf
+if ($FileExist -eq $False) {
+   New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+}
+Else {
+	Remove-Item -Path $DiskpartFilePath\$DiskpartFile
+	New-Item -Path $DiskpartFilePath –Name $DiskpartFile –ItemType file –force | Out-Null
+}
+
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select disk 0"
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value "select partition 3"
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Shrink minimum=2048'
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'create partition primary'
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'format quick fs=ntfs label=WinRE'
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'Set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"'
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'gpt attributes=0x8000000000000001' 
+Add-Content –path $DiskpartFilePath\$DiskpartFile -Value 'exit diskpart'
+
+# Execute diskpart file recovery.txt
+Write-host "- Executing diskpart file recovery.txt ..."
+
+$CMD2Run="C:\Windows\System32\Diskpart.exe"
+$CMDArgs = "/s $($DiskpartFilePath)\$($DiskpartFile)"
+	
+Write-host  " Execute Command: [$CMD2Run $CMDArgs]"
+
+$Command = Start-Process -WindowStyle Hidden -FilePath $CMD2Run -ArgumentList $CMDArgs -RedirectStandardOutput $DiskpartLog -Wait -PassThru; $Command.ExitCode
+$ReturnCode = $Command.ExitCode
+Write-host  " Return Code: $ReturnCode"
+
+if (!($ReturnCode -eq 0)) {
+	Write-host  " Failed to run Command: [$CMD2Run $CMDArgs]. Return Code=$ReturnCode. Exit process"	
+	Exit $ReturnCode
+}
+
+Write-host " Pausing for 5 seconds before next action. Please wait..."
+sleep -seconds 5
+}
 
 switch ($input)
 {
@@ -45,6 +87,8 @@ switch ($input)
         Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
         #Stage Audit_unattend file 
         Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
+        read-host "Press ENTER to continue..."        
+        Create-WinREPartition
         read-host "Press ENTER to continue..."        
         } 
     '4' { #Win11
