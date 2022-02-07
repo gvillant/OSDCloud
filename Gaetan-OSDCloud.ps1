@@ -18,7 +18,7 @@ Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yell
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + WinRE + pause" -ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + WinRE" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
@@ -82,9 +82,8 @@ switch ($input)
         Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
         #Stage Audit_unattend file 
         Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
-        read-host "Press ENTER to continue..."        
-        Create-WinREPartition
-        read-host "Press ENTER to continue..."        
+        #read-host "Press ENTER to continue..."        
+        Create-WinREPartition   
         } 
     '4' { #Win11
         $Global:StartOSDCloudGUI = $null
