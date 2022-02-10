@@ -17,8 +17,9 @@ Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yell
 Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online + WinRE" -ForegroundColor Yellow
+#Write-Host "2: Win10 21H1 | French  | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "2: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3 + WinRE" -ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.2 + WinRE" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
@@ -71,7 +72,21 @@ function Create-WinREPartition {
 switch ($input)
 {
     '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
-    '2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
+    
+   #'2' { Start-OSDCloud -OSLanguage fr-fr -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
+    '2' { 
+        Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG_3-3.zip"
+        $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
+        $GenericPPKGDestPath = "C:\Temp"
+        #Get Dropship Generic PPKG
+        Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
+        Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
+        #Stage Audit_unattend file 
+        Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
+        #read-host "Press ENTER to continue..."        
+        Create-WinREPartition   
+        } 
     '3' { 
         Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
         $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
