@@ -51,14 +51,8 @@ function Create-WinREPartition {
 	sleep -seconds 5
 }
 
-switch ($input)
-{
-    '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI 
-    	Create-WinREPartition
-	}
-    '2' { 
-        Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
-        $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
+function Install-WS1DropShipOnline32 {
+	$GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
         $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
         $GenericPPKGDestPath = "C:\Temp"
         #Get Dropship Generic PPKG
@@ -67,6 +61,16 @@ switch ($input)
         #Stage Audit_unattend file 
         Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
         #read-host "Press ENTER to continue..."        
+}
+
+switch ($input)
+{
+    '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI 
+    	Create-WinREPartition
+	}
+    '2' { 
+        Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        Install-WS1DropShipOnline32
         Create-WinREPartition   
         } 
     '3' { #Win11
