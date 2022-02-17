@@ -78,7 +78,7 @@ switch ($input)
         Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
         $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG_3-3.zip"
         $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-        $GenericPPKGDestPath = "C:\Temp"
+        $GenericPPKGDestPath = "C:\Temp\VMware"
         #Get Dropship Generic PPKG
         Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
         Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
@@ -91,7 +91,7 @@ switch ($input)
         Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
         $GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
         $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-        $GenericPPKGDestPath = "C:\Temp"
+        $GenericPPKGDestPath = "C:\Temp\VMware"
         #Get Dropship Generic PPKG
         Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
         Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
