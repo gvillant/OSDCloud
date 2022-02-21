@@ -10,8 +10,8 @@ Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yell
 Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "2: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3 + WinRE" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.2 + WinRE" -ForegroundColor Yellow
+Write-Host "2: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
+Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.2" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
@@ -19,8 +19,8 @@ Write-Host "7: Windows Custom WIMs (Azure storage file share)" -ForegroundColor 
 Write-Host "8: Win10 Custom WIMs (HTTP Server Wim File - ImageFileUrl)" -ForegroundColor Yellow
 Write-Host "9: Server 2022 Std Gui (HTTP Server Wim File - ImageFileUrl)" -ForegroundColor Yellow
 Write-Host "10: Exit`n"-ForegroundColor Yellow
-Write-Host "11: Win10 20H2 | FRENCH | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3 + WinRE" -ForegroundColor Yellow
-Write-Host "12: Win11 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3 + WinRE" -ForegroundColor Yellow
+Write-Host "11: Win10 20H2 | FRENCH | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
+Write-Host "12: Win11 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
@@ -167,7 +167,7 @@ switch ($input)
     '11' { 
         Start-OSDCloud -OSLanguage fr-fr -OSBuild 20H2 -OSEdition Enterprise -ZTI
         Install-WS1DropShipOnline33
-	Create-WinREPartition   
+	#Create-WinREPartition   
      } 
     '12' { #Win11 + ws1 3.3
         $Global:StartOSDCloudGUI = $null
@@ -208,7 +208,7 @@ switch ($input)
         #$Global:StartOSDCloudGUI | Out-Host
         Start-OSDCloud
         Install-WS1DropShipOnline33
-	Create-WinREPartition   
+	#Create-WinREPartition   
         } 
 }
 
