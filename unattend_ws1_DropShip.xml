@@ -8,11 +8,11 @@
                     <Order>1</Order>
                     <Path>cmd /c c:\Temp\VMware\RunPPKGandXML.bat</Path>
                 </RunAsynchronousCommand>
-				<RunAsynchronousCommand wcm:action="add">
-					<Description>Deleting the unattend.xml</Description>
-					<Order>2</Order>
-					<Path>cmd /c "del c:\windows\panther\unattend\unattend.xml /f /q"</Path>
-				</RunAsynchronousCommand>
+		<RunAsynchronousCommand wcm:action="add">
+                    <Description>Deleting the unattend.xml</Description>
+                    <Order>2</Order>
+                    <Path>cmd /c "del c:\windows\panther\unattend\unattend.xml /f /q"</Path>
+		</RunAsynchronousCommand>
             </RunAsynchronous>
         </component>
     </settings>
