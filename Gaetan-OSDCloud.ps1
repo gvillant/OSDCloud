@@ -103,7 +103,7 @@ function Install-WS1DropShipOffline {
     Save-WebFile -SourceURL $CustomUnattend -DestinationName "Unattend.xml" -DestinationDirectory $WorkingPath
     Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
     
-    read-host "Press ENTER to continue..."        
+    #read-host "Press ENTER to continue..."        
 }
 
 switch ($input)
