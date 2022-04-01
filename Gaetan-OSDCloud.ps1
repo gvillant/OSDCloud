@@ -21,6 +21,7 @@ Write-Host "9: Server 2022 Std Gui (HTTP Server Wim File - ImageFileUrl)" -Foreg
 Write-Host "10: Exit`n"-ForegroundColor Yellow
 Write-Host "11: Win10 20H2 | FRENCH | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
 Write-Host "12: Win11 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
+Write-Host "13: Win10 21H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Offline + Custom PPKG" -ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
 
@@ -65,26 +66,44 @@ function Create-WinREPartition {
 
 function Install-WS1DropShipOnline32 {
 	$GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
-        $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-        $GenericPPKGDestPath = "C:\Temp"
-        #Get Dropship Generic PPKG
-        Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
-        Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
-        #Stage Audit_unattend file 
-        Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
-        #read-host "Press ENTER to continue..."        
+    $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
+    $GenericPPKGDestPath = "C:\Temp"
+    #Get Dropship Generic PPKG
+    Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
+    Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
+    #Stage Audit_unattend file 
+    Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
+    #read-host "Press ENTER to continue..."        
 }
 
 function Install-WS1DropShipOnline33 {
 	$GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG_3-3.zip"
-        $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-        $GenericPPKGDestPath = "C:\Temp\VMware"
-        #Get Dropship Generic PPKG
-        Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
-        Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
-        #Stage Audit_unattend file 
-        Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
-        #read-host "Press ENTER to continue..."        
+    $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
+    $GenericPPKGDestPath = "C:\Temp\VMware"
+    #Get Dropship Generic PPKG
+    Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
+    Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
+    #Stage Audit_unattend file 
+    Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
+    #read-host "Press ENTER to continue..."        
+}
+
+function Install-WS1DropShipOffline {
+	$ProvToolURL = "http://osd.gaetanvillant.com:8888/_WS1/VMwareWS1ProvisioningTool%203.3%20GA.zip"
+    $BatFileURL = "http://osd.gaetanvillant.com:8888/_WS1/RunPPKGandXML.bat"
+	$CustomPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/Custom.ppkg"
+    $CustomUnattend = "http://osd.gaetanvillant.com:8888/_WS1/Custom_Unattend.xml"
+    $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
+    $WorkingPath = "C:\Temp\VMware"
+    #Get Dropship files
+    Save-WebFile -SourceURL $ProvToolURL -DestinationName "VMwareWS1ProvisioningTool_3.3.zip" -DestinationDirectory $WorkingPath
+    Expand-Archive "$WorkingPath\VMwareWS1ProvisioningTool_3.3.zip" $WorkingPath
+    Save-WebFile -SourceURL $BatFileURL -DestinationName "RunPPKGandXML.bat" -DestinationDirectory $WorkingPath
+    Save-WebFile -SourceURL $CustomPPKGURL -DestinationName "CP-Generic-Package.ppkg" -DestinationDirectory $WorkingPath
+    Save-WebFile -SourceURL $CustomUnattend -DestinationName "Unattend.xml" -DestinationDirectory $WorkingPath
+    Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
+    
+    read-host "Press ENTER to continue..."        
 }
 
 switch ($input)
@@ -209,6 +228,11 @@ switch ($input)
         Start-OSDCloud
         Install-WS1DropShipOnline33
 	#Create-WinREPartition   
+        } 
+    '13' { #Win10 + Dropship Offline
+        Start-OSDCloud -OSLanguage en-us -OSBuild 21H2 -OSEdition Enterprise -ZTI
+        Install-WS1DropShipOffline
+    #Create-WinREPartition   
         } 
 }
 
