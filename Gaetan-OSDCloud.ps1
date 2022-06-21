@@ -108,14 +108,14 @@ function Install-WS1DropShipOffline {
 
 switch ($input)
 {
-    '1' { Start-OSDCloud -OSLanguage en-us -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
+    '1' { Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '2' { 
-        Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        Start-OSDCloud -OSLanguage en-us- OSVersion 'Windows 10' -OSBuild 20H2 -OSEdition Enterprise -ZTI
         Install-WS1DropShipOnline33
 	Create-WinREPartition   
         } 
     '3' { 
-        Start-OSDCloud -OSLanguage en-us -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 20H2 -OSEdition Enterprise -ZTI
         Install-WS1DropShipOnline32
 	Create-WinREPartition   
         } 
@@ -184,7 +184,7 @@ switch ($input)
      } 
     '10' { Exit }
     '11' { 
-        Start-OSDCloud -OSLanguage fr-fr -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        Start-OSDCloud -OSLanguage fr-fr -OSVersion 'Windows 10' -OSBuild 20H2 -OSEdition Enterprise -ZTI
         Install-WS1DropShipOnline33
 	#Create-WinREPartition   
      } 
@@ -230,7 +230,7 @@ switch ($input)
 	#Create-WinREPartition   
         } 
     '13' { #Win10 + Dropship Offline
-        Start-OSDCloud -OSLanguage en-us -OSBuild 21H2 -OSEdition Enterprise -ZTI
+        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 21H2 -OSEdition Enterprise -ZTI
         Install-WS1DropShipOffline
     #Create-WinREPartition   
         } 
