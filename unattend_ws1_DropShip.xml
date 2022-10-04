@@ -11,7 +11,7 @@
 		<RunAsynchronousCommand wcm:action="add">
                     <Description>Deleting the unattend.xml</Description>
                     <Order>2</Order>
-                    <Path>cmd /c "del c:\windows\panther\unattend.xml /f /q"</Path>
+                    <Path>cmd /c "del c:\windows\panther\unattend\unattend.xml /f /q"</Path>
 		</RunAsynchronousCommand>
             </RunAsynchronous>
         </component>
