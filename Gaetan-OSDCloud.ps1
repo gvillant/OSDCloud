@@ -10,7 +10,7 @@ Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yell
 Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
 Write-Host "=============================================`n" -ForegroundColor Yellow
 Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "2: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
+Write-Host "2: Win10 21H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
 Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.2" -ForegroundColor Yellow
 Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
@@ -110,7 +110,7 @@ switch ($input)
 {
     '1' { Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
     '2' { 
-        Start-OSDCloud -OSLanguage en-us- OSVersion 'Windows 10' -OSBuild 20H2 -OSEdition Enterprise -ZTI
+        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 21H2 -OSEdition Enterprise -ZTI
         Install-WS1DropShipOnline33
 	Create-WinREPartition   
         } 
