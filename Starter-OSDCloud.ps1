@@ -80,15 +80,15 @@ if($New){
     
     if($WifiSupport){
         Write-Host "Setting up OSDCloud template with wifi support (WinRE)..."
-        New-OSDCloud.template -winre -Verbose
+        New-OSDCloudTemplate -winre -Verbose
     } else {
         Write-Host "Setting up OSDCloud template without wifi support (WinPE)..."
-        New-OSDCloud.template -Verbose
+        New-OSDCloudTemplate -Verbose
     }
 
 }
 if($Workspace){
-    New-OSDCloud.workspace -WorkspacePath $Workspace
+    New-OSDCloudWorkspace -WorkspacePath $Workspace
 }
 
 $Params = @{}
@@ -118,12 +118,12 @@ if($Wallpaper){
     $Params["Wallpaper"] = $Wallpaper 
 }
 
-Edit-OSDCloud.winpe @Params
+Edit-OSDCloudWinpe @Params
 
 if($BuildISO){
-    New-OSDCloud.iso
+    New-OSDCloudISO
 }
 
 if($BuildUSB){
-    New-OSDCloud.usb
+    New-OSDCloudUSB
 }
