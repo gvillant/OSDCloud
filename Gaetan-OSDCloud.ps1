@@ -173,7 +173,7 @@ switch ($input)
         # Win10 Custom WIMs (HTTP Server Wim File)
         $ImageFileUrl = "http://192.168.1.57:8888/_Wim/19045_en-us.wim" #"http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim"
         Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
-        Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 2 -Zti
+        Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 0 -Zti
      } 
      
     '9' { 
