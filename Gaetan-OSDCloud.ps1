@@ -16,7 +16,7 @@ Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -Foregrou
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
 Write-Host "7: Windows Custom WIMs (Azure storage file share)" -ForegroundColor Yellow
-Write-Host "8: Win10 Custom WIMs (HTTP Server Wim File - 19045_en-us.wim 22h2)" -ForegroundColor Yellow
+Write-Host "8: Win10 Custom WIMs (HTTP Server Wim File - 19045_en-us.wim 22h2 - index 2)" -ForegroundColor Yellow
 Write-Host "9: Server 2022 Std Gui (HTTP Server Wim File - ImageFileUrl)" -ForegroundColor Yellow
 Write-Host "10: Exit`n"-ForegroundColor Yellow
 Write-Host "11: Win10 20H2 | FRENCH | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
@@ -175,7 +175,7 @@ switch ($input)
         # Win10 Custom WIMs (HTTP Server Wim File)
         $ImageFileUrl = "http://192.168.1.57:8888/_Wim/19045_en-us.wim" #"http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim" http://192.168.1.57:8888/_Wim/20h2_en_us.wim
         Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
-        Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 0 -Zti
+        Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 2 -Zti
      } 
      
     '9' { 
