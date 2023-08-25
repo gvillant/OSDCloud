@@ -9,10 +9,10 @@ Write-Host "=============================================" -ForegroundColor Yell
 Write-Host "============== @gaetanvillant ===============" -ForegroundColor Yellow
 Write-Host "========== gaetan_villant@dell.com ==========" -ForegroundColor Yellow
 Write-Host "=============================================`n" -ForegroundColor Yellow
-Write-Host "1: Win10 21H1 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
-Write-Host "2: Win10 21H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
-Write-Host "3: Win10 20H2 | English | Enterprise (Windows Update ESD file) + WS1 DS Online 3.2" -ForegroundColor Yellow
-Write-Host "4: Win11 | English | Enterprise (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "1: Win10 22H2 | English | Pro (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "2: Win11 22H2 | English | Pro (Windows Update ESD file)" -ForegroundColor Yellow
+Write-Host "3: Win10 22H2 | English | Pro (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
+Write-Host "4: Win11 22H2 | English | Pro (Windows Update ESD file) + WS1 DS Online 3.3" -ForegroundColor Yellow
 Write-Host "5: Start the legacy OSDCloud CLI (Start-OSDCloud)" -ForegroundColor Yellow
 Write-Host "6: Start the graphical OSDCloud (Start-OSDCloudGUI)" -ForegroundColor Yellow
 Write-Host "7: Windows Custom WIMs (Azure storage file share)" -ForegroundColor Yellow
@@ -66,20 +66,8 @@ function Create-WinREPartition {
 	sleep -seconds 5
 }
 
-function Install-WS1DropShipOnline32 {
-	$GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG.zip"
-    $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-    $GenericPPKGDestPath = "C:\Temp"
-    #Get Dropship Generic PPKG
-    Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
-    Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
-    #Stage Audit_unattend file 
-    Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
-    #read-host "Press ENTER to continue..."        
-}
-
 function Install-WS1DropShipOnline33 {
-	$GenericPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/GenericPPKG_3-3.zip"
+	$GenericPPKGURL = "http://192.168.1.57:8888/_WS1/GenericPPKG_3-3.zip"
     $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
     $GenericPPKGDestPath = "C:\Temp\VMware"
     #Get Dropship Generic PPKG
@@ -91,10 +79,10 @@ function Install-WS1DropShipOnline33 {
 }
 
 function Install-WS1DropShipOffline {
-	$ProvToolURL = "http://osd.gaetanvillant.com:8888/_WS1/VMwareWS1ProvisioningTool%203.3%20GA.zip"
-    $BatFileURL = "http://osd.gaetanvillant.com:8888/_WS1/RunPPKGandXML.bat"
-	$CustomPPKGURL = "http://osd.gaetanvillant.com:8888/_WS1/Custom.ppkg"
-    $CustomUnattend = "http://osd.gaetanvillant.com:8888/_WS1/Custom_Unattend.xml"
+	$ProvToolURL = "http://192.168.1.57:8888/_WS1/VMwareWS1ProvisioningTool%203.3%20GA.zip"
+    $BatFileURL = "http://192.168.1.57:8888/_WS1/RunPPKGandXML.bat"
+	$CustomPPKGURL = "http://192.168.1.57:8888/_WS1/Custom.ppkg"
+    $CustomUnattend = "http://192.168.1.57:8888/_WS1/Custom_Unattend.xml"
     $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
     $WorkingPath = "C:\Temp\VMware"
     #Get Dropship files
@@ -110,17 +98,19 @@ function Install-WS1DropShipOffline {
 
 switch ($input)
 {
-    '1' { Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 21H1 -OSEdition Enterprise -ZTI } 
-    '2' { 
-        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 21H2 -OSEdition Enterprise -ZTI
+    '1' { Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 22H2 -OSEdition Pro -ZTI } 
+    '2' { Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 22H2 -OSEdition Pro -ZTI } 
+    '3' { 
+        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 22H2 -OSEdition Pro -ZTI
         Install-WS1DropShipOnline33
 	Create-WinREPartition   
         } 
-    '3' { 
-        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 10' -OSBuild 20H2 -OSEdition Enterprise -ZTI
-        Install-WS1DropShipOnline32
+    '4' { 
+        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 22H2 -OSEdition Pro -ZTI
+        Install-WS1DropShipOnline33
 	Create-WinREPartition   
         } 
+	<#
     '4' { #Win11
         $Global:StartOSDCloudGUI = $null
         $Global:StartOSDCloudGUI = [ordered]@{
@@ -159,7 +149,7 @@ switch ($input)
             }
         #$Global:StartOSDCloudGUI | Out-Host
         Start-OSDCloud
-        }
+        } #>
     '5' { Start-OSDCloud } 
     '6' { Start-OSDCloudGUI } 
     '7' { 
@@ -173,14 +163,14 @@ switch ($input)
         } 
     '8' { 
         # Win10 Custom WIMs (HTTP Server Wim File)
-        $ImageFileUrl = "http://192.168.1.57:8888/_Wim/19045_en-us.wim" #"http://osd.gaetanvillant.com:8888/20h2_en_us_wer.wim" http://192.168.1.57:8888/_Wim/20h2_en_us.wim
+        $ImageFileUrl = "http://192.168.1.57:8888/_Wim/19045_en-us.wim" #"http://192.168.1.57:8888/20h2_en_us_wer.wim" http://192.168.1.57:8888/_Wim/20h2_en_us.wim
         Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
         Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 2 -Zti
      } 
      
     '9' { 
         # Server 2022 WIM (HTTP Server ISO File)
-        $ImageFileUrl = "http://osd.gaetanvillant.com:8888/_Wim/en-us_windows_server_version_2022_updated_october_2021_x64.wim"
+        $ImageFileUrl = "http://192.168.1.57:8888/_Wim/en-us_windows_server_version_2022_updated_october_2021_x64.wim"
         Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
         Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 2 -Zti
      } 
