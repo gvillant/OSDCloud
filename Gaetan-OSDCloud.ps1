@@ -86,13 +86,13 @@ function Install-WS1DropShipOffline {
     $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
     $WorkingPath = "C:\Temp\VMware"
     #Get Dropship files
-    Save-WebFile -SourceURL $ProvToolURL -DestinationName "VMwareWS1ProvisioningTool_3.3.zip" -DestinationDirectory $WorkingPath
+    Save-WebFile -SourceURL $ProvToolURL -DestinationName "VMwareWS1ProvisioningTool.msi" -DestinationDirectory $WorkingPath
     Save-WebFile -SourceURL $BatFileURL -DestinationName "RunPPKGandXML.bat" -DestinationDirectory $WorkingPath
-    Save-WebFile -SourceURL $CustomPPKGURL -DestinationName "CP-Generic-Package.ppkg" -DestinationDirectory $WorkingPath
+    Save-WebFile -SourceURL $CustomPPKGURL -DestinationName "Custom.ppkg" -DestinationDirectory $WorkingPath
     Save-WebFile -SourceURL $CustomUnattend -DestinationName "Unattend.xml" -DestinationDirectory $WorkingPath
     Save-WebFile -SourceURL $AuditUnattendXML -DestinationName "Unattend.xml" -DestinationDirectory "C:\Windows\panther\Unattend"
     
-    read-host "Press ENTER to continue..."        
+    #read-host "Press ENTER to continue..."        
 }
 
 switch ($input)
