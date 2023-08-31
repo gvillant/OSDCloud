@@ -3,12 +3,12 @@
     <settings pass="auditUser">
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunAsynchronous>
-		    <!--
                 <RunAsynchronousCommand wcm:action="add">
                     <Description>Auto Start Prov Tool</Description>
                     <Order>1</Order>
                     <Path>cmd /c c:\Dropship\RunPPKGandXML.bat</Path>
                 </RunAsynchronousCommand>
+		    <!--
 		<RunAsynchronousCommand wcm:action="add">
                     <Description>Deleting the unattend.xml</Description>
                     <Order>2</Order>
@@ -17,7 +17,7 @@
 		    -->
 	    	<RunAsynchronousCommand wcm:action="add">
                     <Description>Tag File</Description>
-                    <Order>1</Order>
+                    <Order>2</Order>
                     <Path>cmd /c "echo OK &gt; c:\test.txt"</Path>
 		</RunAsynchronousCommand>
             </RunAsynchronous>
