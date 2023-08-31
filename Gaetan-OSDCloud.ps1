@@ -242,7 +242,7 @@ switch ($input)
      } 
     '99' { 
         # Reload
-        Invoke-WebPSSscript "https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1"
+        Invoke-WebPSScript "https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1"
      } 
      
 }
