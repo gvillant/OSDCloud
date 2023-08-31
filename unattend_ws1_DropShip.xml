@@ -8,18 +8,18 @@
                     <Order>1</Order>
                     <Path>cmd /c c:\Dropship\RunPPKGandXML.bat</Path>
                 </RunAsynchronousCommand>
-		    <!--
 		<RunAsynchronousCommand wcm:action="add">
                     <Description>Deleting the unattend.xml</Description>
                     <Order>2</Order>
-                    <Path>cmd /c "del c:\windows\panther\unattend\unattend.xml /f /q"</Path>
+                    <Path>cmd /c "timeout 10 &amp;&amp; del c:\windows\panther\unattend\unattend.xml /F /Q"</Path>
 		</RunAsynchronousCommand>
-		    -->
+	    <!--		  
 	    	<RunAsynchronousCommand wcm:action="add">
                     <Description>Tag File</Description>
                     <Order>2</Order>
                     <Path>cmd /c "echo OK &gt; c:\test.txt"</Path>
 		</RunAsynchronousCommand>
+	    -->
             </RunAsynchronous>
         </component>
     </settings>
