@@ -69,7 +69,7 @@ function Create-WinREPartition {
 function Install-WS1DropShipOnline33 {
 	$GenericPPKGURL = "http://192.168.1.57:8888/_WS1/GenericPPKG_3-3.zip"
     $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-    $GenericPPKGDestPath = "C:\Temp"
+    $GenericPPKGDestPath = "C:\Dropship"
     #Get Dropship Generic PPKG
     Save-WebFile -SourceURL $GenericPPKGURL -DestinationName "GenericPPKG.zip" -DestinationDirectory $GenericPPKGDestPath
     Expand-Archive $GenericPPKGDestPath\GenericPPKG.zip $GenericPPKGDestPath
@@ -84,7 +84,7 @@ function Install-WS1DropShipOffline {
     $CustomPPKGURL = "http://192.168.1.57:8888/_WS1/Custom.ppkg"
     $CustomUnattend = "http://192.168.1.57:8888/_WS1/Custom_Unattend.xml"
     $AuditUnattendXML = "https://raw.githubusercontent.com/gvillant/OSDCloud/main/unattend_ws1_DropShip.xml"
-    $WorkingPath = "C:\Temp"
+    $WorkingPath = "C:\Dropship"
     #Get Dropship files
     Save-WebFile -SourceURL $ProvToolURL -DestinationName "VMwareWS1ProvisioningTool.msi" -DestinationDirectory $WorkingPath
     Save-WebFile -SourceURL $BatFileURL -DestinationName "RunPPKGandXML.bat" -DestinationDirectory $WorkingPath
