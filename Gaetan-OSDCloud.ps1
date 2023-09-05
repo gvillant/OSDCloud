@@ -24,6 +24,7 @@ Write-Host "12: Win11 | English | Enterprise (Windows Update ESD file) + WS1 DS 
 Write-Host "13: Win10 22H2 Custom Dell 19045_en-us.wim | English | Pro + WS1 DS Offline + Custom PPKG" -ForegroundColor Yellow
 Write-Host "14: Win10 22H2 Custom Dell 19045_en-us.wim | English | Pro + WS1 DS Online" -ForegroundColor Yellow
 Write-Host "15: Win10 Custom Dell HTTP - 20h2_en_us.wim index 2" -ForegroundColor Yellow
+Write-Host "16: Win11 22H2 | English | Pro (ESD) + WS1 DS Offline + Custom PPKG" -ForegroundColor Yellow
 Write-Host "99: Reload !!!" -ForegroundColor Yellow
 
 Write-Host "`n DISCLAIMER: USE AT YOUR OWN RISK - Going further will erase all data on your disk ! `n"-ForegroundColor Red
@@ -240,6 +241,11 @@ switch ($input)
         Write-Host "ImageFileURL = $ImageFileUrl" -ForegroundColor Green
         Start-OSDCloud -ImageFileUrl $ImageFileUrl -ImageIndex 2 -Zti
      } 
+    '16' { 
+        Start-OSDCloud -OSLanguage en-us -OSVersion 'Windows 11' -OSBuild 22H2 -OSEdition Pro -ZTI
+        Install-WS1DropShipOffline
+	Create-WinREPartition   
+        } 
     '99' { 
         # Reload
         Invoke-WebPSScript "https://raw.githubusercontent.com/gvillant/OSDCloud/main/Gaetan-OSDCloud.ps1"
